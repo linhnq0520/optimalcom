@@ -16,6 +16,7 @@ namespace Optimal.Com.Web.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new EmployeeBuilder());
             modelBuilder.ApplyConfiguration(new AbsenceFormBuilder());
+            modelBuilder.ApplyConfiguration(new CodelistBuilder());
         }
     }
 }
