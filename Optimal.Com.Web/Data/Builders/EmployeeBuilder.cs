@@ -19,6 +19,8 @@ namespace Optimal.Com.Web.Data.Builders
             builder.Property(s=>s.PhoneNumber).AsString(10);
             builder.Property(s=>s.Address).IsRequired().AsString(100);
             builder.Property(s=>s.Email).AsString(50);
+            builder.Property(s=>s.RemainingDaysOff).HasMaxLength(2);
+            builder.Property(s=>s.DaysOffUsed).HasMaxLength(2);
         }
     }
 }

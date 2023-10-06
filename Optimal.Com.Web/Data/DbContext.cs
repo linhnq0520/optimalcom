@@ -9,19 +9,13 @@ namespace Optimal.Com.Web.Data
         public MyDbContext(DbContextOptions options) : base(options) { }
 
         #region DbSet
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductType> ProductTypes { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new EmployeeBuilder());
-            modelBuilder.Entity<ProductType>(e =>
-            {
-                e.ToTable("ProductType");
-                e.HasKey(t => t.TypeCode);
-            });
+            modelBuilder.ApplyConfiguration(new AbsenceFormBuilder());
         }
     }
 }

@@ -34,5 +34,9 @@ namespace Optimal.Com.Web.Data.Entities
 
         [JsonProperty("email")]
         public string Email { get; set; } = string.Empty;
+        [JsonProperty("remaining_days_off")]
+        public int RemainingDaysOff { get; set; }
+        [JsonProperty("days_off_used")]
+        public int DaysOffUsed { get; set; }
     }
 }

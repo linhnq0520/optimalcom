@@ -13,14 +13,16 @@ namespace Optimal.Com.Web.Framework.Infrastructure
     }
     public class Singleton<T>:BaseSingleton
     {
-        private static T instance;
-        public static T Instance
+        private static T? instance;
+        public static T? Instance
         {
             get { return instance; }
             set 
             { 
                 instance = value;
-                BaseSingleton.AllSingletons[typeof(T)] = value;
+#pragma warning disable CS8601 // Possible null reference assignment.
+                AllSingletons[typeof(T)] = value;
+#pragma warning restore CS8601 // Possible null reference assignment.
             }
         }
     }
