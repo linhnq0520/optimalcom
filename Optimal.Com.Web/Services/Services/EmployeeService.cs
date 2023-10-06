@@ -31,5 +31,37 @@ namespace Optimal.Com.Web.Services
             await _employeeRepository.AddAsync(entity);
             return model;
         }
+
+        public async Task<EmployeeModel> GetById(int id)
+        {
+            var response = new EmployeeModel();
+            var emp = await _employeeRepository.GetByIdAsync(id);
+            if(emp != null)
+            {
+                response = _mapper.Map<EmployeeModel>(emp);
+            }
+            return response;
+        }
+
+        public async Task<EmployeeModel> GetByEmployeeId(string code)
+        {
+            var response = new EmployeeModel();
+            var emp = await _employeeRepository.Table.Where(s=>s.EmployeeID==code).FirstOrDefaultAsync();
+            if (emp != null)
+            {
+                response = _mapper.Map<EmployeeModel>(emp);
+            }
+            return response;
+        }
+
+        public async Task<EmployeeModel> Update(EmployeeUpdateModel model)
+        {
+            var emp = _employeeRepository.GetByIdAsync(model.Id);
+            var entity = _mapper.Map<Employee>(model);
+            if (emp != null)
+                await _employeeRepository.UpdateAsync(entity);
+            else await _employeeRepository.AddAsync(entity);
+            return await GetByEmployeeId(model.EmployeeId);
+        }
     }
 }

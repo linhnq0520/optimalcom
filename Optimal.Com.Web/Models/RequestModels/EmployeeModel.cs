@@ -25,4 +25,28 @@ namespace Optimal.Com.Web.Models.RequestModels
         [JsonProperty("status")]
         public string Status { get; set; } = string.Empty;
     }
+    public class EmployeeUpdateModel : BaseModel
+    {
+        public EmployeeUpdateModel() { }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("employee_id")]
+        public string EmployeeId { get; set; } = string.Empty;
+
+        [JsonProperty("employee_name")]
+        public string EmployeeName { get; set; } = string.Empty;
+
+        [JsonProperty("gender")]
+        public int Gender { get; set; }
+
+        [JsonProperty("date_of_birth")]
+        public DateTime DateOfBirth { get; set; }
+
+        [JsonProperty("branch_code")]
+        public string BranchCode { get; set; } = string.Empty;
+
+        [JsonProperty("status")]
+        public string Status { get; set; } = string.Empty;
+    }
 }

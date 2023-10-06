@@ -6,5 +6,6 @@ namespace Optimal.Com.Web.Services
     {
         Task<List<EmployeeModel>> GetAllEmployee();
         Task<EmployeeModel> Create(EmployeeModel model);
+        Task<EmployeeModel> Update(EmployeeUpdateModel model);
     }
 }

@@ -24,5 +24,12 @@ namespace Optimal.Com.Web.Controllers
             var response = await _employeeService.GetAllEmployee();
             return Ok(response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmployee(EmployeeUpdateModel model)
+        {
+            var respone = await _employeeService.Update(model);
+            return Ok(respone);
+        }
     }
 }

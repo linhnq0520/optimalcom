@@ -14,6 +14,7 @@ namespace Optimal.Com.Web.Startup.Mapper
             CreateMap<Employee, EmployeeModel>();
             CreateMap<EmployeeModel, Employee>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
+            CreateMap<EmployeeUpdateModel, Employee>();
         }
     }
 }
