@@ -32,36 +32,40 @@ namespace Optimal.Com.Web.Services
             return model;
         }
 
-        public async Task<EmployeeModel> GetById(int id)
+        public async Task<Employee?> GetById(int id)
         {
-            var response = new EmployeeModel();
-            var emp = await _employeeRepository.GetByIdAsync(id);
-            if(emp != null)
-            {
-                response = _mapper.Map<EmployeeModel>(emp);
-            }
-            return response;
+            var emp = await _employeeRepository.GetByIdAsync(id)??null;
+            return emp;
         }
 
-        public async Task<EmployeeModel> GetByEmployeeId(string code)
+        public async Task<Employee?> GetByEmployeeId(string employeeId)
         {
-            var response = new EmployeeModel();
-            var emp = await _employeeRepository.Table.Where(s=>s.EmployeeID==code).FirstOrDefaultAsync();
-            if (emp != null)
-            {
-                response = _mapper.Map<EmployeeModel>(emp);
-            }
-            return response;
+            var emp = await _employeeRepository.Table.Where(s => s.EmployeeID == employeeId).FirstOrDefaultAsync();
+            return emp;
         }
 
-        public async Task<EmployeeModel> Update(EmployeeUpdateModel model)
+        public async Task<Employee?> Update(EmployeeUpdateModel model)
         {
-            var emp = _employeeRepository.GetByIdAsync(model.Id);
-            var entity = _mapper.Map<Employee>(model);
+            var emp = await _employeeRepository.GetByIdAsync(model.Id);
+
             if (emp != null)
-                await _employeeRepository.UpdateAsync(entity);
-            else await _employeeRepository.AddAsync(entity);
-            return await GetByEmployeeId(model.EmployeeId);
+            {
+                var updatedEntity = _mapper.Map(model, emp);
+                await _employeeRepository.UpdateAsync(updatedEntity);
+            }
+            else
+            {
+                var enity = _mapper.Map<Employee>(model);
+                await _employeeRepository.AddAsync(enity);
+            }
+
+            return await GetById(model.Id);
         }
+
+        public async Task Delete(int id)
+        {
+            await _employeeRepository.DeleteAsync(id);
+        }
+
     }
 }

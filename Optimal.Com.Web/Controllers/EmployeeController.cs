@@ -13,7 +13,7 @@ namespace Optimal.Com.Web.Controllers
             _employeeService = employeeService;
         }
         [HttpPost]
-        public async Task<IActionResult> AddNewEmployee(EmployeeModel model)
+        public async Task<IActionResult> AddEmployee(EmployeeModel model)
         {
             var response = await _employeeService.Create(model);
             return Ok(response);
@@ -30,6 +30,36 @@ namespace Optimal.Com.Web.Controllers
         {
             var respone = await _employeeService.Update(model);
             return Ok(respone);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var response = await _employeeService.GetById(id);
+            if (response != null)
+                return Ok(response);
+            else
+                return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByEmployeeId(string employeeId)
+        {
+            var response = await _employeeService.GetByEmployeeId(employeeId);
+            if (response != null)
+                return Ok(response);
+            else
+                return NotFound();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            var emp = await _employeeService.GetById(id);
+            if(emp != null)
+            {
+                await _employeeService.Delete(id);
+                return Ok();
+            }
+            else return NotFound();
         }
     }
 }

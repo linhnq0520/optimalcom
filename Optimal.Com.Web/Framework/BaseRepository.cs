@@ -43,7 +43,10 @@ namespace Optimal.Com.Web.Framework.Data
 
         public async Task UpdateAsync(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            var entry = _context.Entry(entity);
+            entry.State = EntityState.Modified;
+            entry.Property(x => x.Id).IsModified = false;
+
             await SaveAsync();
         }
 
