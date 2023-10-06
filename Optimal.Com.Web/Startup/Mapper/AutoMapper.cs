@@ -10,6 +10,10 @@ namespace Optimal.Com.Web.Startup.Mapper
         {
             CreateMap<ProductModel, Product>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<Employee, EmployeeModel>();
+            CreateMap<EmployeeModel, Employee>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }

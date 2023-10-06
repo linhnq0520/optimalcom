@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Optimal.Com.Web.Data.Builders;
 using Optimal.Com.Web.Data.Entities;
 
 namespace Optimal.Com.Web.Data
@@ -14,6 +15,8 @@ namespace Optimal.Com.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new EmployeeBuilder());
             modelBuilder.Entity<ProductType>(e =>
             {
                 e.ToTable("ProductType");
