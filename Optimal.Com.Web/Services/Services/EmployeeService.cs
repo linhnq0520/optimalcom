@@ -27,6 +27,10 @@ namespace Optimal.Com.Web.Services
         }
         public async Task<EmployeeModel> Create(EmployeeModel model)
         {
+            if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
+            {
+                throw new Exception("Invalid email");
+            }
             var entity = _mapper.Map<Employee>(model);
             await _employeeRepository.AddAsync(entity);
             return model;
@@ -46,6 +50,11 @@ namespace Optimal.Com.Web.Services
 
         public async Task<Employee?> Update(EmployeeUpdateModel model)
         {
+            if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
+            {
+                throw new Exception("Invalid email");
+            }
+
             var emp = await _employeeRepository.GetByIdAsync(model.Id);
 
             if (emp != null)

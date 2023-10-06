@@ -24,6 +24,14 @@ namespace Optimal.Com.Web.Models.RequestModels
 
         [JsonProperty("status")]
         public string Status { get; set; } = string.Empty;
+        [JsonProperty("phone_number")]
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        [JsonProperty("address")]
+        public string Address { get; set; } = string.Empty;
+
+        [JsonProperty("email")]
+        public string Email { get; set; } = string.Empty;
     }
     public class EmployeeUpdateModel : BaseModel
     {
@@ -48,5 +56,13 @@ namespace Optimal.Com.Web.Models.RequestModels
 
         [JsonProperty("status")]
         public string Status { get; set; } = string.Empty;
+        [JsonProperty("phone_number")]
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        [JsonProperty("address")]
+        public string Address { get; set; } = string.Empty;
+
+        [JsonProperty("email")]
+        public string Email { get; set; } = string.Empty;
     }
 }
