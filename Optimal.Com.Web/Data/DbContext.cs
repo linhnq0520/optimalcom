@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Builders;
 using Optimal.Com.Web.Data.Entities;
+using Optimal.Com.Web.Framework;
+using System.Reflection;
 
 namespace Optimal.Com.Web.Data
 {
@@ -14,9 +16,7 @@ namespace Optimal.Com.Web.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new EmployeeBuilder());
-            modelBuilder.ApplyConfiguration(new AbsenceFormBuilder());
-            modelBuilder.ApplyConfiguration(new CodelistBuilder());
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
         }
     }
 }
