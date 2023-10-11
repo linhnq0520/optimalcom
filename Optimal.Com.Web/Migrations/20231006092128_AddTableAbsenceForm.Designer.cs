@@ -46,7 +46,7 @@ namespace Optimal.Com.Web.Migrations
                     b.Property<DateTime>("ApproveDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmployeeId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(10)");
 
@@ -71,9 +71,9 @@ namespace Optimal.Com.Web.Migrations
                     b.ToTable("AbsenceForm");
                 });
 
-            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.Employee", b =>
+            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.User", b =>
                 {
-                    b.Property<string>("EmployeeID")
+                    b.Property<string>("UserID")
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Address")
@@ -95,7 +95,7 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("EmployeeName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
@@ -121,11 +121,11 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeID");
+                    b.HasKey("UserID");
 
-                    b.HasIndex("EmployeeID");
+                    b.HasIndex("UserID");
 
-                    b.ToTable("Employee");
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }

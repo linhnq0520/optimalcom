@@ -28,7 +28,7 @@ namespace Optimal.Com.Web.Startup
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IUserService, UserService>();
         }
     }
 }

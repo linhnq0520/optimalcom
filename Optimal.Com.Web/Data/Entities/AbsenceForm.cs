@@ -6,7 +6,7 @@ namespace Optimal.Com.Web.Data.Entities
     public class AbsenceForm:BaseEntity
     {
         public AbsenceForm() { }
-        public string EmployeeId { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
         public DateTime AbsenceFromDate { get; set; }
         public DateTime AbsenceToDate { get; set; }
         public int TotalAbsenceDay { get; set; }

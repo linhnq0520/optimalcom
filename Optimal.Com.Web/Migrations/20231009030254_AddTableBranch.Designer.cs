@@ -12,8 +12,8 @@ using Optimal.Com.Web.Data;
 namespace Optimal.Com.Web.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231006100251_CodelistTable")]
-    partial class CodelistTable
+    [Migration("20231009030254_AddTableBranch")]
+    partial class AddTableBranch
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,27 @@ namespace Optimal.Com.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AbsenceForm");
+                });
+
+            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branch");
                 });
 
             modelBuilder.Entity("Optimal.Com.Web.Data.Entities.Codelist", b =>

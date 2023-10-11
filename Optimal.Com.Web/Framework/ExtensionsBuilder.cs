@@ -44,7 +44,7 @@ namespace Optimal.Com.Web.Framework
 
         private static object? GetColumnValue(object item, string columnName)
         {
-            var property = item.GetType().GetProperty(columnName);
+            PropertyInfo? property = item.GetType().GetProperty(columnName);
             return property.GetValue(item);
         }
         public static ModelBuilder ApplyAllConfigurationsFromCurrentAssembly(this ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace Optimal.Com.Web.Framework
 
             foreach (var type in typesToRegister)
             {
-                dynamic configurationInstance = Activator.CreateInstance(type);
+                dynamic? configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.ApplyConfiguration(configurationInstance);
             }
 

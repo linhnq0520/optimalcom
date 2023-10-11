@@ -5,14 +5,14 @@ using Optimal.Com.Web.Framework;
 
 namespace Optimal.Com.Web.Data.Builders
 {
-    public class EmployeeBuilder : IEntityTypeConfiguration<Employee>
+    public class UserBuilder : IEntityTypeConfiguration<UserAccount>
     {
-        public void Configure(EntityTypeBuilder<Employee> builder)
+        public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.Property(s=>s.EmployeeName).IsRequired().AsString(50);
-            builder.Property(s=>s.EmployeeID).IsRequired().AsString(5);
-            builder.HasIndex(s => s.EmployeeID);
-            builder.HasKey(s => s.EmployeeID);
+            builder.Property(s=>s.UserName).IsRequired().AsString(50);
+            builder.Property(s=>s.UserID).IsRequired().AsString(5);
+            builder.HasIndex(s => s.UserID);
+            builder.HasKey(s => s.UserID);
             builder.Property(s=>s.DateOfBirth).IsRequired();
             builder.Property(s=>s.BranchCode).IsRequired().AsString(5);
             builder.Property(s=>s.Gender).IsRequired().HasMaxLength(1);

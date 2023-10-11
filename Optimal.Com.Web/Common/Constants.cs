@@ -2,7 +2,7 @@
 {
     public static class Constants
     {
-        public static class EmployeeStatus
+        public static class UserStatus
         {
             public const string Active = "A";
             public const string InActive = "I";

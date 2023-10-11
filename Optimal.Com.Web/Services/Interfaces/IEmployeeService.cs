@@ -3,13 +3,13 @@ using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
 {
-    public interface IEmployeeService
+    public interface IUserService
     {
-        Task<List<EmployeeModel>> GetAllEmployee();
-        Task<EmployeeModel> Create(EmployeeModel model);
-        Task<Employee?> Update(EmployeeUpdateModel model);
-        Task<Employee?> GetById(int id);
-        Task<Employee?> GetByEmployeeId(string employeeId);
+        Task<List<UserModel>> GetAllUser();
+        Task<UserModel> Create(UserModel model);
+        Task<UserAccount?> Update(UserUpdateModel model);
+        Task<UserAccount?> GetById(int id);
+        Task<UserAccount?> GetByUserId(string UserId);
         Task Delete(int id);
     }
 }

@@ -3,15 +3,15 @@ using Optimal.Com.Web.Framework;
 
 namespace Optimal.Com.Web.Models.RequestModels
 {
-    public class EmployeeModel:BaseModel
+    public class UserModel:BaseModel
     {
-        public EmployeeModel() { }
+        public UserModel() { }
 
-        [JsonProperty("employee_id")]
-        public string EmployeeId { get; set; } = string.Empty;
+        [JsonProperty("User_id")]
+        public string UserId { get; set; } = string.Empty;
 
-        [JsonProperty("employee_name")]
-        public string EmployeeName { get; set; } = string.Empty;
+        [JsonProperty("User_name")]
+        public string UserName { get; set; } = string.Empty;
 
         [JsonProperty("gender")]
         public int Gender { get; set; }
@@ -32,18 +32,20 @@ namespace Optimal.Com.Web.Models.RequestModels
 
         [JsonProperty("email")]
         public string Email { get; set; } = string.Empty;
+        [JsonProperty("position")]
+        public string Posision { get; set; } = string.Empty;
     }
-    public class EmployeeUpdateModel : BaseModel
+    public class UserUpdateModel : BaseModel
     {
-        public EmployeeUpdateModel() { }
+        public UserUpdateModel() { }
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("employee_id")]
-        public string EmployeeId { get; set; } = string.Empty;
+        [JsonProperty("User_id")]
+        public string UserId { get; set; } = string.Empty;
 
-        [JsonProperty("employee_name")]
-        public string EmployeeName { get; set; } = string.Empty;
+        [JsonProperty("User_name")]
+        public string UserName { get; set; } = string.Empty;
 
         [JsonProperty("gender")]
         public int Gender { get; set; }
@@ -64,5 +66,7 @@ namespace Optimal.Com.Web.Models.RequestModels
 
         [JsonProperty("email")]
         public string Email { get; set; } = string.Empty;
+        [JsonProperty("position")]
+        public string Posision { get; set; } = string.Empty;
     }
 }

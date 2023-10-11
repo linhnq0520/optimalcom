@@ -17,7 +17,7 @@ namespace Optimal.Com.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     AbsenceFromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AbsenceToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAbsenceDay = table.Column<int>(type: "int", maxLength: 2, nullable: false),

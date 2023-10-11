@@ -6,66 +6,66 @@ using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class UserService : IUserService
     {
-        private readonly IRepository<Employee> _employeeRepository;
+        private readonly IRepository<UserAccount> _UserRepository;
         private readonly IMapper _mapper;
-        public EmployeeService(IRepository<Employee> employeeRepository, IMapper mapper) 
+        public UserService(IRepository<UserAccount> UserRepository, IMapper mapper) 
         { 
-            _employeeRepository = employeeRepository;
+            _UserRepository = UserRepository;
             _mapper = mapper;
         }
-        public async Task<List<EmployeeModel>> GetAllEmployee()
+        public async Task<List<UserModel>> GetAllUser()
         {
-            var response = new List<EmployeeModel>();
-            var emps = await _employeeRepository.Table.ToListAsync();
+            var response = new List<UserModel>();
+            var emps = await _UserRepository.Table.ToListAsync();
             if(emps.Any())
             {
-                response = _mapper.Map<List<EmployeeModel>>(emps);
+                response = _mapper.Map<List<UserModel>>(emps);
             }
             return response;
         }
-        public async Task<EmployeeModel> Create(EmployeeModel model)
+        public async Task<UserModel> Create(UserModel model)
         {
             if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
             {
                 throw new Exception("Invalid email");
             }
-            var entity = _mapper.Map<Employee>(model);
-            await _employeeRepository.AddAsync(entity);
+            var entity = _mapper.Map<UserAccount>(model);
+            await _UserRepository.AddAsync(entity);
             return model;
         }
 
-        public async Task<Employee?> GetById(int id)
+        public async Task<UserAccount?> GetById(int id)
         {
-            var emp = await _employeeRepository.GetByIdAsync(id)??null;
+            var emp = await _UserRepository.GetByIdAsync(id)??null;
             return emp;
         }
 
-        public async Task<Employee?> GetByEmployeeId(string employeeId)
+        public async Task<UserAccount?> GetByUserId(string UserId)
         {
-            var emp = await _employeeRepository.Table.Where(s => s.EmployeeID == employeeId).FirstOrDefaultAsync();
+            var emp = await _UserRepository.Table.Where(s => s.UserID == UserId).FirstOrDefaultAsync();
             return emp;
         }
 
-        public async Task<Employee?> Update(EmployeeUpdateModel model)
+        public async Task<UserAccount?> Update(UserUpdateModel model)
         {
             if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
             {
                 throw new Exception("Invalid email");
             }
 
-            var emp = await _employeeRepository.GetByIdAsync(model.Id);
+            var emp = await _UserRepository.GetByIdAsync(model.Id);
 
             if (emp != null)
             {
                 var updatedEntity = _mapper.Map(model, emp);
-                await _employeeRepository.UpdateAsync(updatedEntity);
+                await _UserRepository.UpdateAsync(updatedEntity);
             }
             else
             {
-                var enity = _mapper.Map<Employee>(model);
-                await _employeeRepository.AddAsync(enity);
+                var enity = _mapper.Map<UserAccount>(model);
+                await _UserRepository.AddAsync(enity);
             }
 
             return await GetById(model.Id);
@@ -73,7 +73,7 @@ namespace Optimal.Com.Web.Services
 
         public async Task Delete(int id)
         {
-            await _employeeRepository.DeleteAsync(id);
+            await _UserRepository.DeleteAsync(id);
         }
 
     }

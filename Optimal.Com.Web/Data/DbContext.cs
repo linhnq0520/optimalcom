@@ -10,9 +10,6 @@ namespace Optimal.Com.Web.Data
     {
         public MyDbContext(DbContextOptions options) : base(options) { }
 
-        #region DbSet
-        #endregion
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -8,14 +8,14 @@ namespace Optimal.Com.Web.Startup.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<Employee, EmployeeModel>();
+            CreateMap<UserAccount, UserModel>();
 
-            CreateMap<EmployeeModel, Employee>()
+            CreateMap<UserModel, UserAccount>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
-            CreateMap<EmployeeUpdateModel, Employee>()
+            CreateMap<UserUpdateModel, UserAccount>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.EmployeeID, opt => opt.Ignore());
+                .ForMember(dest => dest.UserID, opt => opt.Ignore());
         }
     }
 }

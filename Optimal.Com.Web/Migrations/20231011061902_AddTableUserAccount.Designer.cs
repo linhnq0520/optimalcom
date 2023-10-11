@@ -12,8 +12,8 @@ using Optimal.Com.Web.Data;
 namespace Optimal.Com.Web.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231006100251_CodelistTable")]
-    partial class CodelistTable
+    [Migration("20231011061902_AddTableUserAccount")]
+    partial class AddTableUserAccount
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,10 +46,6 @@ namespace Optimal.Com.Web.Migrations
                     b.Property<DateTime>("ApproveDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("PersonApprove")
                         .IsRequired()
                         .HasColumnType("nvarchar(10)");
@@ -66,9 +62,34 @@ namespace Optimal.Com.Web.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
                     b.HasKey("Id");
 
                     b.ToTable("AbsenceForm");
+                });
+
+            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branch");
                 });
 
             modelBuilder.Entity("Optimal.Com.Web.Data.Entities.Codelist", b =>
@@ -100,7 +121,7 @@ namespace Optimal.Com.Web.Migrations
                     b.ToTable("Codelist");
                 });
 
-            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.User", b =>
+            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.UserAccount", b =>
                 {
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(5)");
@@ -124,10 +145,6 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<int>("Gender")
                         .HasMaxLength(1)
                         .HasColumnType("int");
@@ -142,6 +159,10 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("Posision")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RemainingDaysOff")
                         .HasMaxLength(2)
                         .HasColumnType("int");
@@ -150,11 +171,15 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("UserID");
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("User");
+                    b.ToTable("UserAccount");
                 });
 #pragma warning restore 612, 618
         }

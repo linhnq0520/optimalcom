@@ -5,36 +5,36 @@ using Optimal.Com.Web.Services;
 
 namespace Optimal.Com.Web.Controllers
 {
-    public class EmployeeController:BaseController
+    public class UserController:BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        public EmployeeController(IEmployeeService employeeService)
+        private readonly IUserService _UserService;
+        public UserController(IUserService UserService)
         {
-            _employeeService = employeeService;
+            _UserService = UserService;
         }
         [HttpPost]
-        public async Task<IActionResult> AddEmployee(EmployeeModel model)
+        public async Task<IActionResult> AddUser(UserModel model)
         {
-            var response = await _employeeService.Create(model);
+            var response = await _UserService.Create(model);
             return Ok(response);
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var response = await _employeeService.GetAllEmployee();
+            var response = await _UserService.GetAllUser();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateEmployee(EmployeeUpdateModel model)
+        public async Task<IActionResult> UpdateUser(UserUpdateModel model)
         {
-            var respone = await _employeeService.Update(model);
+            var respone = await _UserService.Update(model);
             return Ok(respone);
         }
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await _employeeService.GetById(id);
+            var response = await _UserService.GetById(id);
             if (response != null)
                 return Ok(response);
             else
@@ -42,9 +42,9 @@ namespace Optimal.Com.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByEmployeeId(string employeeId)
+        public async Task<IActionResult> GetByUserId(string UserId)
         {
-            var response = await _employeeService.GetByEmployeeId(employeeId);
+            var response = await _UserService.GetByUserId(UserId);
             if (response != null)
                 return Ok(response);
             else
@@ -53,10 +53,10 @@ namespace Optimal.Com.Web.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteById(int id)
         {
-            var emp = await _employeeService.GetById(id);
+            var emp = await _UserService.GetById(id);
             if(emp != null)
             {
-                await _employeeService.Delete(id);
+                await _UserService.Delete(id);
                 return Ok();
             }
             else return NotFound();

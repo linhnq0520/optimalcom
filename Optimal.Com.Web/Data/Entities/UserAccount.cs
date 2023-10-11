@@ -6,13 +6,13 @@ namespace Optimal.Com.Web.Data.Entities
     /// <summary>
     /// 
     /// </summary>
-    public class Employee:BaseEntity
+    public class UserAccount : BaseEntity
     {
-        [JsonProperty("employee_id")]
-        public string EmployeeID { get; set; } = string.Empty;
+        [JsonProperty("user_id")]
+        public string UserID { get; set; } = string.Empty;
 
-        [JsonProperty("employee_name")]
-        public string EmployeeName { get; set; } = string.Empty;
+        [JsonProperty("user_name")]
+        public string UserName { get; set; } = string.Empty;
 
         [JsonProperty("gender")]
         public int Gender { get; set; }
@@ -38,5 +38,7 @@ namespace Optimal.Com.Web.Data.Entities
         public int RemainingDaysOff { get; set; }
         [JsonProperty("days_off_used")]
         public int DaysOffUsed { get; set; }
+        [JsonProperty("position")]
+        public string Posision { get; set; } = string.Empty;
     }
 }
