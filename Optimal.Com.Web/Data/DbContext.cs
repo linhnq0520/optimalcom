@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Optimal.Com.Web.Data.Builders;
-using Optimal.Com.Web.Data.Entities;
-using Optimal.Com.Web.Framework;
-using System.Reflection;
+using Optimal.Com.Web.Framework.Migrations;
 
 namespace Optimal.Com.Web.Data
 {
