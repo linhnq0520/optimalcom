@@ -1,4 +1,5 @@
 ﻿using AutoMapper.Internal;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
@@ -28,8 +29,10 @@ namespace Optimal.Com.Web.Services.Services.EmailService
                 if (getMailConfig == null || getMailTemplate == null)
                     throw new Exception("Mail Config or Mail Template not found");
 
-                var email = new MimeMessage();
-                email.Sender = MailboxAddress.Parse(getMailConfig.Sender);
+                var email = new MimeMessage
+                {
+                    Sender = MailboxAddress.Parse(getMailConfig.Sender)
+                };
 
                 foreach (var address in mailRequest.Receiver.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -39,26 +42,26 @@ namespace Optimal.Com.Web.Services.Services.EmailService
 
 
                 var builder = new BodyBuilder();
-                //if (mailRequest.AttachmentBase64Strings != null && mailRequest.AttachmentBase64Strings.Count > 0)
-                //{
-                //    List<byte[]> attachmentByteArrays = mailRequest.AttachmentBase64Strings
-                //                    .Select(base64String => Convert.FromBase64String(base64String))
-                //                    .ToList();
-                //    for (int i = 0; i < attachmentByteArrays.Count; i++)
-                //    {
-                //        byte[] byteArray = attachmentByteArrays[i];
-                //        string filename = mailRequest.AttachmentFilenames[i];
+                if (mailRequest.AttachmentBase64Strings != null && mailRequest.AttachmentBase64Strings.Count > 0)
+                {
+                    List<byte[]> attachmentByteArrays = mailRequest.AttachmentBase64Strings
+                                    .Select(base64String => Convert.FromBase64String(base64String))
+                                    .ToList();
+                    for (int i = 0; i < attachmentByteArrays.Count; i++)
+                    {
+                        byte[] byteArray = attachmentByteArrays[i];
+                        string filename = mailRequest.AttachmentFilenames[i];
 
-                //        builder.Attachments.Add(filename, byteArray);
-                //    }
-                //}
-                //if (mailRequest.MimeEntities != null && mailRequest.MimeEntities.Count > 0)
-                //{
-                //    foreach (var entity in mailRequest.MimeEntities)
-                //    {
-                //        builder.LinkedResources.Add(entity);
-                //    }
-                //}
+                        builder.Attachments.Add(filename, byteArray);
+                    }
+                }
+                if (mailRequest.MimeEntities != null && mailRequest.MimeEntities.Count > 0)
+                {
+                    foreach (var entity in mailRequest.MimeEntities)
+                    {
+                        builder.LinkedResources.Add(entity);
+                    }
+                }
                 //if (mailRequest.IncludeLogo)
                 //{
                 //    var imagePartFooter = new MimePart(new ContentType("image", "png"))
@@ -75,27 +78,27 @@ namespace Optimal.Com.Web.Services.Services.EmailService
                 //    builder.LinkedResources.Add(imagePartHeader);
                 //}
 
-                //builder.HtmlBody = ReplaceData(getMailTemplate.Body, mailRequest.DataTemplate);
-                //email.Body = builder.ToMessageBody();
-                //using var smtp = new SmtpClient();
-                //smtp.Connect(getMailConfig.Host, getMailConfig.Port, getMailConfig.EnableTLS ? SecureSocketOptions.StartTls : SecureSocketOptions.StartTlsWhenAvailable);
-                //smtp.Authenticate(getMailConfig.Sender, getMailConfig.Password);
+                builder.HtmlBody = ReplaceData(getMailTemplate.Body, mailRequest.DataTemplate);
+                email.Body = builder.ToMessageBody();
+                using var smtp = new SmtpClient();
+                smtp.Connect(getMailConfig.Host, getMailConfig.Port, getMailConfig.EnableTLS ? SecureSocketOptions.StartTls : SecureSocketOptions.StartTlsWhenAvailable);
+                smtp.Authenticate(getMailConfig.Sender, getMailConfig.Password);
 
-                //await smtp.SendAsync(email);
-                //smtp.Disconnect(true);
+                await smtp.SendAsync(email);
+                smtp.Disconnect(true);
             }
             catch (System.Exception ex)
             {
                 throw new Exception(ex.ToString());
             }
         }
-        private string ReplaceData(string para, Dictionary<string, object> data)
+        private static string ReplaceData(string para, Dictionary<string, object> data)
         {
             if (para == null || data == null) return para;
 
             string pattern = "@\\{([^\\{]*)\\}";
 
-            foreach (Match match in Regex.Matches(para, pattern))
+            foreach (Match match in Regex.Matches(para, pattern).Cast<Match>())
             {
 
                 if (match.Success && match.Groups.Count > 0)

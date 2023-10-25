@@ -20,9 +20,7 @@ namespace Optimal.Com.Web.Framework.Infrastructure
             set 
             { 
                 instance = value;
-#pragma warning disable CS8601 // Possible null reference assignment.
                 AllSingletons[typeof(T)] = value;
-#pragma warning restore CS8601 // Possible null reference assignment.
             }
         }
     }
