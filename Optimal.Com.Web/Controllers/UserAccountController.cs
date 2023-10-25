@@ -7,13 +7,13 @@ namespace Optimal.Com.Web.Controllers
 {
     public class UserController:BaseController
     {
-        private readonly IUserService _UserService;
-        public UserController(IUserService UserService)
+        private readonly IUserAccountService _UserService;
+        public UserController(IUserAccountService UserService)
         {
             _UserService = UserService;
         }
         [HttpPost]
-        public async Task<IActionResult> AddUser(UserModel model)
+        public async Task<IActionResult> AddUser(UserAccountModel model)
         {
             var response = await _UserService.Create(model);
             return Ok(response);

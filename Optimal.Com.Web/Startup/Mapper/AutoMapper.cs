@@ -8,9 +8,9 @@ namespace Optimal.Com.Web.Startup.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<UserAccount, UserModel>();
+            CreateMap<UserAccount, UserAccountModel>();
 
-            CreateMap<UserModel, UserAccount>()
+            CreateMap<UserAccountModel, UserAccount>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
             CreateMap<UserUpdateModel, UserAccount>()

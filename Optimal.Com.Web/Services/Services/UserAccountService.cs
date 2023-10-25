@@ -6,26 +6,26 @@ using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
 {
-    public class UserService : IUserService
+    public class UserAccountService : IUserAccountService
     {
         private readonly IRepository<UserAccount> _UserRepository;
         private readonly IMapper _mapper;
-        public UserService(IRepository<UserAccount> UserRepository, IMapper mapper) 
+        public UserAccountService(IRepository<UserAccount> UserRepository, IMapper mapper) 
         { 
             _UserRepository = UserRepository;
             _mapper = mapper;
         }
-        public async Task<List<UserModel>> GetAllUser()
+        public async Task<List<UserAccountModel>> GetAllUser()
         {
-            var response = new List<UserModel>();
+            var response = new List<UserAccountModel>();
             var emps = await _UserRepository.Table.ToListAsync();
             if(emps.Any())
             {
-                response = _mapper.Map<List<UserModel>>(emps);
+                response = _mapper.Map<List<UserAccountModel>>(emps);
             }
             return response;
         }
-        public async Task<UserModel> Create(UserModel model)
+        public async Task<UserAccountModel> Create(UserAccountModel model)
         {
             if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
             {

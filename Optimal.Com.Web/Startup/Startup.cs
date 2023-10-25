@@ -13,13 +13,10 @@ namespace Optimal.Com.Web.Startup
         public static void ConfigureServices(this WebApplicationBuilder builder, IConfiguration configuration)
         {
             builder.Configuration.AddJsonFile("appsettings.json");
-
-            // Services
             builder.Services.AddDbContext<MyDbContext>(option =>
             {
                 option.UseSqlServer(configuration.GetConnectionString("ConnectionString"));
             });
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy();
@@ -27,8 +24,9 @@ namespace Optimal.Com.Web.Startup
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-            builder.Services.AddScoped<IUserService, UserService>();
+            // Services
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped<IUserAccountService, UserAccountService>();
         }
     }
 }

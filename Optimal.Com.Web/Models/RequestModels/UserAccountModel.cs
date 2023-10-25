@@ -3,9 +3,9 @@ using Optimal.Com.Web.Framework;
 
 namespace Optimal.Com.Web.Models.RequestModels
 {
-    public class UserModel:BaseModel
+    public class UserAccountModel:BaseModel
     {
-        public UserModel() { }
+        public UserAccountModel() { }
 
         [JsonProperty("User_id")]
         public string UserId { get; set; } = string.Empty;

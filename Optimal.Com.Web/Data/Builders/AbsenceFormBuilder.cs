@@ -9,6 +9,7 @@ namespace Optimal.Com.Web.Data.Builders
     {
         public void Configure(EntityTypeBuilder<AbsenceForm> builder)
         {
+            builder.Property(s => s.AbsenceFormCode).IsRequired().AsString(10);
             builder.Property(s => s.UserId).IsRequired().AsString(10);
             builder.Property(s => s.AbsenceFromDate).IsRequired();
             builder.Property(s=>s.AbsenceToDate).IsRequired();

@@ -3,10 +3,10 @@ using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
 {
-    public interface IUserService
+    public interface IUserAccountService
     {
-        Task<List<UserModel>> GetAllUser();
-        Task<UserModel> Create(UserModel model);
+        Task<List<UserAccountModel>> GetAllUser();
+        Task<UserAccountModel> Create(UserAccountModel model);
         Task<UserAccount?> Update(UserUpdateModel model);
         Task<UserAccount?> GetById(int id);
         Task<UserAccount?> GetByUserId(string UserId);
