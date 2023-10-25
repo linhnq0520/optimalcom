@@ -7,7 +7,7 @@ namespace Optimal.Com.Web.Framework.Data
     {
         IQueryable<TEntity> Table { get; }
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity?> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(int id);
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(int id);
@@ -30,7 +30,7 @@ namespace Optimal.Com.Web.Framework.Data
             return await Table.ToListAsync();
         }
 
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
             return await Table.FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -52,7 +52,7 @@ namespace Optimal.Com.Web.Framework.Data
 
         public async Task DeleteAsync(int id)
         {
-            TEntity? entity = await Table.FirstOrDefaultAsync(x => x.Id == id);
+            TEntity entity = await Table.FirstOrDefaultAsync(x => x.Id == id);
             if (entity != null)
             {
                 _context.Remove(entity);

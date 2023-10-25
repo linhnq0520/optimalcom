@@ -2,39 +2,43 @@
 using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
+using Newtonsoft.Json.Linq;
 using Optimal.Com.Web.Data.Entities;
 using Optimal.Com.Web.Framework.Data;
 using Optimal.Com.Web.Models.RequestModels;
+using System.Text.RegularExpressions;
 
 namespace Optimal.Com.Web.Services.Services.EmailService
 {
     public partial class EmailService : IEmailService
     {
         private readonly IRepository<EmailConfig> _configRepository;
-        public EmailService(IRepository<EmailConfig> configRepository) 
+        private readonly IRepository<EmailTemplate> _templateRepository;
+        public EmailService(IRepository<EmailConfig> configRepository, IRepository<EmailTemplate> templateRepository)
         {
             _configRepository = configRepository;
+            _templateRepository = templateRepository;
         }
-        public async Task HandleSendMail(SendMailModel model)
+        public async Task HandleSendMail(SendMailModel mailRequest)
         {
             try
             {
-                var getMailConfig = await _configRepository.Table.Where(s=>s.ConfigId==model.ConfigId).FirstOrDefaultAsync();
-                //var getMailTemplate = await _contextMailTemplate.GetByTemplateId(mailRequest.TemplateId);
-                //if (getMailConfig == null || getMailTemplate == null)
-                //    throw new NeptuneException("Mail Config or Mail Template not found");
+                var getMailConfig = await _configRepository.Table.Where(s=>s.ConfigId== mailRequest.ConfigId).FirstOrDefaultAsync();
+                var getMailTemplate = await _templateRepository.Table.Where(s=>s.TemplateId== mailRequest.TemplateId).FirstOrDefaultAsync();
+                if (getMailConfig == null || getMailTemplate == null)
+                    throw new Exception("Mail Config or Mail Template not found");
 
-                //var email = new MimeMessage();
-                //email.Sender = MailboxAddress.Parse(getMailConfig.Sender);
+                var email = new MimeMessage();
+                email.Sender = MailboxAddress.Parse(getMailConfig.Sender);
 
-                //foreach (var address in mailRequest.Receiver.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
-                //{
-                //    email.To.Add(MailboxAddress.Parse(address));
-                //}
-                //email.Subject = ReplaceData(getMailTemplate.Subject, mailRequest.DataTemplate);
+                foreach (var address in mailRequest.Receiver.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    email.To.Add(MailboxAddress.Parse(address));
+                }
+                email.Subject = ReplaceData(getMailTemplate.Subject, mailRequest.DataTemplate);
 
 
-                //var builder = new BodyBuilder();
+                var builder = new BodyBuilder();
                 //if (mailRequest.AttachmentBase64Strings != null && mailRequest.AttachmentBase64Strings.Count > 0)
                 //{
                 //    List<byte[]> attachmentByteArrays = mailRequest.AttachmentBase64Strings
@@ -85,5 +89,34 @@ namespace Optimal.Com.Web.Services.Services.EmailService
                 throw new Exception(ex.ToString());
             }
         }
+        private string ReplaceData(string para, Dictionary<string, object> data)
+        {
+            if (para == null || data == null) return para;
+
+            string pattern = "@\\{([^\\{]*)\\}";
+
+            foreach (Match match in Regex.Matches(para, pattern))
+            {
+
+                if (match.Success && match.Groups.Count > 0)
+                {
+                    var text = match.Groups[1].Value;
+                    try
+                    {
+                        var value = JObject.Parse(System.Text.Json.JsonSerializer.Serialize(data));
+                        if (value.SelectToken(text) != null)
+                            para = para.Replace(match.Groups[0].Value, value.SelectToken(text).ToString());
+                    }
+                    catch (System.Exception ex)
+                    {
+                        // TODO
+                        System.Console.WriteLine("CANT FIND " + text + " IN DATA SAMPLE " + System.Text.Json.JsonSerializer.Serialize(data) + ex.StackTrace);
+                    }
+                }
+
+            }
+            return para;
+        }
+
     }
 }

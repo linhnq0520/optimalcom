@@ -13,8 +13,8 @@ namespace Optimal.Com.Web.Framework.Infrastructure
     }
     public class Singleton<T>:BaseSingleton
     {
-        private static T? instance;
-        public static T? Instance
+        private static T instance;
+        public static T Instance
         {
             get { return instance; }
             set 

@@ -36,19 +36,19 @@ namespace Optimal.Com.Web.Services
             return model;
         }
 
-        public async Task<UserAccount?> GetById(int id)
+        public async Task<UserAccount> GetById(int id)
         {
             var emp = await _UserRepository.GetByIdAsync(id)??null;
             return emp;
         }
 
-        public async Task<UserAccount?> GetByUserId(string UserId)
+        public async Task<UserAccount> GetByUserId(string UserId)
         {
             var emp = await _UserRepository.Table.Where(s => s.UserID == UserId).FirstOrDefaultAsync();
             return emp;
         }
 
-        public async Task<UserAccount?> Update(UserUpdateModel model)
+        public async Task<UserAccount> Update(UserUpdateModel model)
         {
             if (!string.IsNullOrEmpty(model.Email) && !Utils.Utils.IsValidEmail(model.Email))
             {

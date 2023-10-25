@@ -27,7 +27,7 @@ namespace Optimal.Com.Web.Framework.Migrations
 
             foreach (var type in typesToRegister)
             {
-                dynamic? configurationInstance = Activator.CreateInstance(type);
+                dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.ApplyConfiguration(configurationInstance);
             }
 
