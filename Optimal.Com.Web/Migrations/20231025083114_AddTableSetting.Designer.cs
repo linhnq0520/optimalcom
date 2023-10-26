@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Optimal.Com.Web.Data;
 using Optimal.Com.Web.Framework.Data;
 
 #nullable disable
@@ -13,8 +12,8 @@ using Optimal.Com.Web.Framework.Data;
 namespace Optimal.Com.Web.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231025032343_AddTableEmailConfig")]
-    partial class AddTableEmailConfig
+    [Migration("20231025083114_AddTableSetting")]
+    partial class AddTableSetting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +51,6 @@ namespace Optimal.Com.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PersonApprove")
-                        .IsRequired()
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ReasonAbsence")
@@ -183,6 +181,40 @@ namespace Optimal.Com.Web.Migrations
                     b.ToTable("EmailConfig");
                 });
 
+            modelBuilder.Entity("Optimal.Com.Web.Data.Entities.EmailTemplate", b =>
+                {
+                    b.Property<string>("TemplateId")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Attachments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("EmailTemplate");
+                });
+
             modelBuilder.Entity("Optimal.Com.Web.Data.Entities.UserAccount", b =>
                 {
                     b.Property<string>("UserID")
@@ -204,7 +236,6 @@ namespace Optimal.Com.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Gender")
@@ -218,11 +249,9 @@ namespace Optimal.Com.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Posision")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RemainingDaysOff")
@@ -230,7 +259,6 @@ namespace Optimal.Com.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
@@ -242,6 +270,26 @@ namespace Optimal.Com.Web.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("UserAccount");
+                });
+
+            modelBuilder.Entity("Optimal.Com.Web.Framework.Entity.Setting", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Setting");
                 });
 #pragma warning restore 612, 618
         }

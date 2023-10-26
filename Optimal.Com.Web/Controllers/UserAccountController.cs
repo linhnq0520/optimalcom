@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Optimal.Com.Web.Common;
 using Optimal.Com.Web.Framework.Controller;
 using Optimal.Com.Web.Models.RequestModels;
 using Optimal.Com.Web.Services;
@@ -8,9 +9,11 @@ namespace Optimal.Com.Web.Controllers
     public class UserController:BaseController
     {
         private readonly IUserAccountService _UserService;
-        public UserController(IUserAccountService UserService)
+        private readonly OptimalSetting _setting;
+        public UserController(IUserAccountService UserService, OptimalSetting setting)
         {
             _UserService = UserService;
+            _setting = setting;
         }
         [HttpPost]
         public async Task<IActionResult> AddUser(UserAccountModel model)
@@ -60,6 +63,11 @@ namespace Optimal.Com.Web.Controllers
                 return Ok();
             }
             else return NotFound();
+        }
+        [HttpGet]
+        public IActionResult GetSetting()
+        {
+            return Ok(_setting.Config);
         }
     }
 }

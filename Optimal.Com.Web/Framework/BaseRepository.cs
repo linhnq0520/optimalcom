@@ -1,8 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Optimal.Com.Web.Data;
+using Optimal.Com.Web.Framework.Migrations;
 
 namespace Optimal.Com.Web.Framework.Data
 {
+    public class MyDbContext : DbContext
+    {
+        public MyDbContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
+        }
+    }
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         IQueryable<TEntity> Table { get; }

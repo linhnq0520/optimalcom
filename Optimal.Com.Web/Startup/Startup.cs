@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Optimal.Com.Web.Data;
+using Optimal.Com.Web.Common;
 using Optimal.Com.Web.Framework.Data;
 using Optimal.Com.Web.Framework.Infrastructure;
+using Optimal.Com.Web.Framework.Interface;
+using Optimal.Com.Web.Framework.Service;
 using Optimal.Com.Web.Services;
 using Optimal.Com.Web.Startup.Mapper;
-using System.Text.Json;
 
 namespace Optimal.Com.Web.Startup
 {
@@ -27,6 +28,16 @@ namespace Optimal.Com.Web.Startup
             // Services
             builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+            builder.Services.AddScoped<ISettingService, SettingService>();
+            var settings = AppDomainInfrastructure.FindClassesOfType<ISetting>().ToList();
+            foreach(var setting in settings)
+            {
+                builder.Services.AddTransient(setting, context =>
+                {
+                    return context.GetRequiredService<ISettingService>().LoadSetting(setting).Result;
+                });
+            }    
+           
         }
     }
 }

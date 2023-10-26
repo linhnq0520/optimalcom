@@ -112,8 +112,7 @@ namespace Optimal.Com.Web.Services.Services.EmailService
                     }
                     catch (System.Exception ex)
                     {
-                        // TODO
-                        System.Console.WriteLine("CANT FIND " + text + " IN DATA SAMPLE " + System.Text.Json.JsonSerializer.Serialize(data) + ex.StackTrace);
+                        Console.WriteLine("CANT FIND " + text + " IN DATA SAMPLE " + System.Text.Json.JsonSerializer.Serialize(data) + ex.StackTrace);
                     }
                 }
 
