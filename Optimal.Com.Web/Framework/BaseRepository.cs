@@ -11,6 +11,7 @@ namespace Optimal.Com.Web.Framework.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
+            modelBuilder.ApplySeedDataFromCurrentAssembly();
         }
     }
     public interface IRepository<TEntity> where TEntity : BaseEntity

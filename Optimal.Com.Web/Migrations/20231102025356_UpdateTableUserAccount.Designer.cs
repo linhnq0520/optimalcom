@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Optimal.Com.Web.Framework.Data;
 
@@ -11,9 +12,11 @@ using Optimal.Com.Web.Framework.Data;
 namespace Optimal.Com.Web.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231102025356_UpdateTableUserAccount")]
+    partial class UpdateTableUserAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,14 +298,6 @@ namespace Optimal.Com.Web.Migrations
                     b.HasKey("Name");
 
                     b.ToTable("Setting");
-
-                    b.HasData(
-                        new
-                        {
-                            Name = "AuthSetting.SecretKey",
-                            Id = 0,
-                            Value = "uevfqmvekswfzycptlhuhsazjzancgvz"
-                        });
                 });
 #pragma warning restore 612, 618
         }

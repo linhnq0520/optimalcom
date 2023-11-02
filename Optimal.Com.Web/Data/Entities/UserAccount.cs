@@ -14,6 +14,12 @@ namespace Optimal.Com.Web.Data.Entities
         [JsonProperty("user_name")]
         public string UserName { get; set; } = string.Empty;
 
+        [JsonProperty("login_name")]
+        public string LoginName { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
         [JsonProperty("gender")]
         public int Gender { get; set; }
 
@@ -34,10 +40,13 @@ namespace Optimal.Com.Web.Data.Entities
 
         [JsonProperty("email")]
         public string Email { get; set; } = string.Empty;
+
         [JsonProperty("remaining_days_off")]
         public int RemainingDaysOff { get; set; }
+
         [JsonProperty("days_off_used")]
         public int DaysOffUsed { get; set; }
+
         [JsonProperty("position")]
         public string Posision { get; set; } = string.Empty;
     }

@@ -21,6 +21,8 @@ namespace Optimal.Com.Web.Data.Builders
             builder.Property(s=>s.Email).AsString(50);
             builder.Property(s=>s.RemainingDaysOff).HasMaxLength(2);
             builder.Property(s=>s.DaysOffUsed).HasMaxLength(2);
+            builder.Property(s=>s.LoginName).IsRequired().AsString(50);
+            builder.Property(s=>s.Password).IsRequired().AsString(250);
         }
     }
 }
