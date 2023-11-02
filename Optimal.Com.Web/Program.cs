@@ -2,12 +2,10 @@ using Optimal.Com.Web.Framework.Configuration;
 using Optimal.Com.Web.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 // Add services to the container.
 builder.ConfigureServicesBase(builder.Configuration);
 builder.ConfigureServices(builder.Configuration);
-
+builder.WebHost.UseUrls(builder.Configuration["Kestrel:Endpoints"]);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +16,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthentication();
 

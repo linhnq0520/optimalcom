@@ -20,6 +20,10 @@ namespace Optimal.Com.Web.Controllers
         [Authorize]
         public async Task<IActionResult> AddUser(UserAccountModel model)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("You need to log in to access this resource.");
+            }
             var response = await _UserService.Create(model);
             return Ok(response);
         }
