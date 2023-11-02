@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-namespace Optimal.Com.Web.Framework
+namespace Optimal.Com.Web.Framework.Helpers
 {
     public class CommonHelper
     {
@@ -65,7 +65,7 @@ namespace Optimal.Com.Web.Framework
             for (int i = 0; i < str.Length; i++)
             {
                 char c = str[i];
-                text = ((!(c.ToString() != c.ToString().ToLower())) ? (text + c) : (text + " " + c));
+                text = !(c.ToString() != c.ToString().ToLower()) ? text + c : text + " " + c;
             }
 
             return text.TrimStart();

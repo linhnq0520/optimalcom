@@ -1,4 +1,4 @@
-﻿using Optimal.Com.Web.Framework.Interface;
+﻿using Optimal.Com.Web.Framework.Services.Interface;
 
 namespace Optimal.Com.Web.Common
 {

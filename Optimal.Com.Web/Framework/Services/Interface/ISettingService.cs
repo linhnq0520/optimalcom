@@ -1,6 +1,4 @@
-﻿using Optimal.Com.Web.Framework.Interface;
-
-namespace Optimal.Com.Web.Framework.Service
+﻿namespace Optimal.Com.Web.Framework.Services.Interface
 {
     public interface ISettingService
     {

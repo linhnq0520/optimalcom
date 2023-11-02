@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Entities;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
@@ -44,7 +44,7 @@ namespace Optimal.Com.Web.Services
 
         public async Task<UserAccount> GetByUserId(string UserId)
         {
-            var emp = await _UserRepository.Table.Where(s => s.UserID == UserId).FirstOrDefaultAsync();
+            var emp = await _UserRepository.Table.Where(s => s.UserCode == UserId).FirstOrDefaultAsync();
             return emp;
         }
 

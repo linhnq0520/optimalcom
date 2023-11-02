@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Optimal.Com.Web.Data.Entities;
+using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Startup.Mapper
@@ -15,7 +16,9 @@ namespace Optimal.Com.Web.Startup.Mapper
 
             CreateMap<UserUpdateModel, UserAccount>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.UserID, opt => opt.Ignore());
+                .ForMember(dest => dest.UserCode, opt => opt.Ignore());
+
+            CreateMap<UserAccount, User>();
         }
     }
 }

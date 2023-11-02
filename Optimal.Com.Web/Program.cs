@@ -1,9 +1,11 @@
+using Optimal.Com.Web.Framework.Configuration;
 using Optimal.Com.Web.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
+builder.ConfigureServicesBase(builder.Configuration);
 builder.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
@@ -16,6 +18,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

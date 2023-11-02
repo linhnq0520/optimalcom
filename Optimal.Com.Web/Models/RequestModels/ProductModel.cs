@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Optimal.Com.Web.Framework;
+using Optimal.Com.Web.Framework.Commons;
 
 namespace Optimal.Com.Web.Models.RequestModels
 {

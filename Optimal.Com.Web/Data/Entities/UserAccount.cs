@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Optimal.Com.Web.Framework;
+using Optimal.Com.Web.Framework.Commons;
 
 namespace Optimal.Com.Web.Data.Entities
 {
@@ -8,8 +8,8 @@ namespace Optimal.Com.Web.Data.Entities
     /// </summary>
     public class UserAccount : BaseEntity
     {
-        [JsonProperty("user_id")]
-        public string UserID { get; set; } = string.Empty;
+        [JsonProperty("user_code")]
+        public string UserCode { get; set; } = string.Empty;
 
         [JsonProperty("user_name")]
         public string UserName { get; set; } = string.Empty;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
 using Optimal.Com.Web.Framework.Migration;
 
-namespace Optimal.Com.Web.Framework.Migrations
+namespace Optimal.Com.Web.Framework.Extensions
 {
     public static class ExtensionsBuilder
     {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Optimal.Com.Web.Framework.Migrations;
+using Optimal.Com.Web.Framework.Commons;
+using Optimal.Com.Web.Framework.Extensions;
 
-namespace Optimal.Com.Web.Framework.Data
+namespace Optimal.Com.Web.Framework.Entity
 {
     public class MyDbContext : DbContext
     {

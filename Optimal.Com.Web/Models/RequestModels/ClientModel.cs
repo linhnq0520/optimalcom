@@ -1,5 +1,5 @@
-﻿using Optimal.Com.Web.Framework;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Optimal.Com.Web.Framework.Commons;
 
 namespace OptimalCom.Web.Models
 {

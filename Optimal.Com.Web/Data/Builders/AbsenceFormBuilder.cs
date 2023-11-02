@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Optimal.Com.Web.Data.Entities;
-using Optimal.Com.Web.Framework.Migrations;
+using Optimal.Com.Web.Framework.Extensions;
 
 namespace Optimal.Com.Web.Data.Builders
 {

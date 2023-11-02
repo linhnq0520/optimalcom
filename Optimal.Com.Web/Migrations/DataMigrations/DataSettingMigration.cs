@@ -11,7 +11,7 @@ namespace Optimal.Com.Web.Migrations.DataMigrations
         {
             modelBuilder.Entity<Setting>().HasData
                 (
-                    new Setting { Name = "AuthSetting.SecretKey", Value= "uevfqmvekswfzycptlhuhsazjzancgvz" }
+                    new Setting { Name = "WebApiSetting.SecretKey", Value= "lNMJ8FzDjL15jalPwAXcR3RV46EQsO5N" }
                 );
         }
     }

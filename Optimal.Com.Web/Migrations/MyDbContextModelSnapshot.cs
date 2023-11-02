@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Entity;
 
 #nullable disable
 
@@ -214,7 +214,7 @@ namespace Optimal.Com.Web.Migrations
 
             modelBuilder.Entity("Optimal.Com.Web.Data.Entities.UserAccount", b =>
                 {
-                    b.Property<string>("UserID")
+                    b.Property<string>("UserCode")
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Address")
@@ -270,9 +270,9 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("UserID");
+                    b.HasKey("UserCode");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserCode");
 
                     b.ToTable("UserAccount");
                 });
@@ -299,9 +299,9 @@ namespace Optimal.Com.Web.Migrations
                     b.HasData(
                         new
                         {
-                            Name = "AuthSetting.SecretKey",
+                            Name = "WebApiSetting.SecretKey",
                             Id = 0,
-                            Value = "uevfqmvekswfzycptlhuhsazjzancgvz"
+                            Value = "lNMJ8FzDjL15jalPwAXcR3RV46EQsO5N"
                         });
                 });
 #pragma warning restore 612, 618

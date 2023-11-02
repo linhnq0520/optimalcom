@@ -13,7 +13,7 @@ namespace Optimal.Com.Web.Migrations
             migrationBuilder.InsertData(
                 table: "Setting",
                 columns: new[] { "Name", "Value" },
-                values: new object[] { "AuthSetting.SecretKey", "uevfqmvekswfzycptlhuhsazjzancgvz" });
+                values: new object[] { "WebApiSetting.SecretKey", "lNMJ8FzDjL15jalPwAXcR3RV46EQsO5N" });
         }
 
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Optimal.Com.Web.Migrations
             migrationBuilder.DeleteData(
                 table: "Setting",
                 keyColumn: "Name",
-                keyValue: "AuthSetting.SecretKey");
+                keyValue: "WebApiSetting.SecretKey");
         }
     }
 }

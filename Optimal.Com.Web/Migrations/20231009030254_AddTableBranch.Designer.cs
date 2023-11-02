@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Entity;
 
 #nullable disable
 

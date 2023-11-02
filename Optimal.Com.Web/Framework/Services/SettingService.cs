@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Optimal.Com.Web.Framework.Data;
 using Optimal.Com.Web.Framework.Entity;
-using Optimal.Com.Web.Framework.Interface;
+using Optimal.Com.Web.Framework.Helpers;
+using Optimal.Com.Web.Framework.Services.Interface;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Optimal.Com.Web.Framework.Service
+namespace Optimal.Com.Web.Framework.Services
 {
     public class SettingService: ISettingService
     {
