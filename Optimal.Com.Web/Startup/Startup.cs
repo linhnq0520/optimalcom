@@ -4,8 +4,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Optimal.Com.Web.Common;
 using Optimal.Com.Web.Framework.Configuration;
-using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Framework.Infrastructure;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Startup.Mapper;
 using System.Text;
 

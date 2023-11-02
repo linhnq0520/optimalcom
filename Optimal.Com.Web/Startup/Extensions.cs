@@ -1,5 +1,5 @@
-﻿using Optimal.Com.Web.Framework.Entity;
-using Optimal.Com.Web.Framework.Infrastructure;
+﻿using Optimal.Com.Web.Framework.Infrastructure;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Framework.Services;
 using Optimal.Com.Web.Framework.Services.Interface;
 using Optimal.Com.Web.Services;

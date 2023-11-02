@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Optimal.Com.Web.Startup
 {
-    public static class AuthenticationService
+    public static class Authentication
     {
         public static IServiceCollection AddAuthenticationService(this IServiceCollection services, IConfiguration configuration)
         {

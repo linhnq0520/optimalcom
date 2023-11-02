@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using Newtonsoft.Json.Linq;
 using Optimal.Com.Web.Data.Entities;
-using Optimal.Com.Web.Framework.Entity;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Models.RequestModels;
 using System.Text.RegularExpressions;
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Entities;
-using Optimal.Com.Web.Framework.Entity;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services

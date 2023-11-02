@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Framework.Helpers;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Framework.Services.Interface;
 using System.ComponentModel;
 using System.Reflection;

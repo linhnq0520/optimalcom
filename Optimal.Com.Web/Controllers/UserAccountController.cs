@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Optimal.Com.Web.Common;
 using Optimal.Com.Web.Framework.Commons;
 using Optimal.Com.Web.Models.RequestModels;
@@ -16,6 +17,7 @@ namespace Optimal.Com.Web.Controllers
             _setting = setting;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddUser(UserAccountModel model)
         {
             var response = await _UserService.Create(model);
@@ -29,6 +31,7 @@ namespace Optimal.Com.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(UserUpdateModel model)
         {
             var respone = await _UserService.Update(model);
@@ -54,6 +57,7 @@ namespace Optimal.Com.Web.Controllers
                 return NotFound();
         }
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteById(int id)
         {
             var emp = await _UserService.GetById(id);

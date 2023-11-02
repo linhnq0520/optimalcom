@@ -2,30 +2,8 @@
 using Optimal.Com.Web.Framework.Commons;
 using Optimal.Com.Web.Framework.Extensions;
 
-namespace Optimal.Com.Web.Framework.Entity
+namespace Optimal.Com.Web.Framework.Repository
 {
-    public class MyDbContext : DbContext
-    {
-        public MyDbContext(DbContextOptions options) : base(options) { }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
-            modelBuilder.ApplySeedDataFromCurrentAssembly();
-        }
-    }
-    public interface IRepository<TEntity> where TEntity : BaseEntity
-    {
-        IQueryable<TEntity> Table { get; }
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity> GetByIdAsync(int id);
-        Task AddAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(int id);
-        Task SaveAsync();
-    }
-
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly MyDbContext _context;

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Entities;
 using Optimal.Com.Web.Framework.Commons;
 using Optimal.Com.Web.Framework.Entity;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Framework.Services.Interface;
 using Optimal.Com.Web.Models.RequestModels;
 using Optimal.Com.Web.Models.ResponseModels;
