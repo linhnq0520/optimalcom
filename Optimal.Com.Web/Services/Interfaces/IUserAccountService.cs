@@ -1,4 +1,5 @@
 ﻿using Optimal.Com.Web.Data.Entities;
+using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Models.RequestModels;
 
 namespace Optimal.Com.Web.Services
@@ -11,5 +12,6 @@ namespace Optimal.Com.Web.Services
         Task<UserAccount> GetById(int id);
         Task<UserAccount> GetByUserId(string UserId);
         Task Delete(int id);
+        Task<User> GetUserLogin(string loginName, string password);
     }
 }

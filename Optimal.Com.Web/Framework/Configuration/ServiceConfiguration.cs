@@ -9,7 +9,7 @@ namespace Optimal.Com.Web.Framework.Configuration
     {
         public static IServiceCollection AddServiceConfiguration(this IServiceCollection services)
         {
-            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddTransient<IJwtTokenService, JwtTokenService>();
 
             return services;
         }

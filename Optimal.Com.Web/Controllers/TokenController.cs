@@ -8,39 +8,36 @@ using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Framework.Services.Interface;
 using Optimal.Com.Web.Models.RequestModels;
 using Optimal.Com.Web.Models.ResponseModels;
+using Optimal.Com.Web.Services;
 
 namespace Optimal.Com.Web.Controllers
 {
     public class TokenController : BaseController
     {
-        private readonly IRepository<UserAccount> _userRepository;
         private readonly IJwtTokenService _jwtTokenService;
-        private readonly IMapper _mapper;
-        public TokenController(IRepository<UserAccount> userRepository, 
+        private readonly IUserAccountService _userAccountService;
+        public TokenController( 
             IJwtTokenService jwtTokenService,
-            IMapper mapper) 
+            IUserAccountService userAccountService) 
         {
-            _userRepository = userRepository;
             _jwtTokenService = jwtTokenService;
-            _mapper = mapper;
+            _userAccountService = userAccountService;
         }
         [HttpPost]
         public async Task<IActionResult> Authenticate(LoginModel model)
         {
-            var userAccount = await _userRepository.Table.Where(s => s.LoginName == model.LoginName && s.Password == model.Password)
-                                            .SingleOrDefaultAsync();
-            if (userAccount == null)
+            var user = await _userAccountService.GetUserLogin(model.LoginName, model.Password);
+            if (user == null)
             {
                 return Ok(new ApiResponse
                 {
-                    IsSuccess = false,
+                    Success = false,
                     Message = "Invalid LoginName/Password"
                 }); 
             }
-            var user = _mapper.Map<User>(userAccount);
             return Ok(new ApiResponse
             {
-                IsSuccess = true,
+                Success = true,
                 Message ="Authenticate Successfully",
                 Data = _jwtTokenService.GetNewJwtToken(user)
             });

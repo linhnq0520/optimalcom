@@ -16,10 +16,10 @@ namespace Optimal.Com.Web.Startup
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = configuration["Jwt:Audience"],
-                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    //ValidAudience = configuration["Jwt:Audience"],
+                    //ValidIssuer = configuration["Jwt:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });

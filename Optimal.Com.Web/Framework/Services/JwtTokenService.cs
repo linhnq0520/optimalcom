@@ -37,7 +37,10 @@ namespace Optimal.Com.Web.Framework.Services
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             byte[] bytes = Encoding.UTF8.GetBytes(_webApiSetting.SecretKey);
             SigningCredentials signingCredentials = new SigningCredentials(new SymmetricSecurityKey(bytes), SecurityAlgorithms.HmacSha512Signature);
-            JwtSecurityToken token = new JwtSecurityToken(new JwtHeader(signingCredentials), new JwtPayload(claims));
+            
+            JwtSecurityToken token = new JwtSecurityToken(
+                new JwtHeader(signingCredentials), 
+                new JwtPayload(claims));
             return jwtSecurityTokenHandler.WriteToken(token);
         }
     }

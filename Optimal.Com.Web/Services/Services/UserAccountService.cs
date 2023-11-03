@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Entities;
+using Optimal.Com.Web.Framework.Entity;
 using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Models.RequestModels;
 
@@ -75,6 +76,12 @@ namespace Optimal.Com.Web.Services
         {
             await _UserRepository.DeleteAsync(id);
         }
-
+        public async Task<User> GetUserLogin(string loginName, string password)
+        {
+            var userAccount = await _UserRepository.Table.Where(s => s.LoginName == loginName 
+                                    && s.Password == password).SingleOrDefaultAsync();
+            var user = _mapper.Map<User>(userAccount);
+            return user;
+        }
     }
 }
