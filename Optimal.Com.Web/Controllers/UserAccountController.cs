@@ -52,9 +52,9 @@ namespace Optimal.Com.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByUserId(string UserId)
+        public async Task<IActionResult> GetByUserCode(string UserId)
         {
-            var response = await _UserService.GetByUserId(UserId);
+            var response = await _UserService.GetByUserCode(UserId);
             if (response != null)
                 return Ok(response);
             else

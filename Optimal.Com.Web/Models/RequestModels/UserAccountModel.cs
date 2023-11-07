@@ -49,6 +49,7 @@ namespace Optimal.Com.Web.Models.RequestModels
         [JsonProperty("position")]
         public string Posision { get; set; } = string.Empty;
     }
+
     public class UserUpdateModel : BaseModel
     {
         public UserUpdateModel() { }

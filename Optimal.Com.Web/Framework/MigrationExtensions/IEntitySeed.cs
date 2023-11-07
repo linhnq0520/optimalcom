@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Optimal.Com.Web.Framework.Migration
+namespace Optimal.Com.Web.Framework.MigrationExtensions
 {
     public interface IEntitySeed
     {

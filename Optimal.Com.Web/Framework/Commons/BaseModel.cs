@@ -7,5 +7,4 @@ namespace Optimal.Com.Web.Framework.Commons
     public abstract class BaseModel
     {
     }
-
 }
