@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Repository;
 
 #nullable disable
 
@@ -214,7 +214,7 @@ namespace Optimal.Com.Web.Migrations
 
             modelBuilder.Entity("Optimal.Com.Web.Data.Entities.UserAccount", b =>
                 {
-                    b.Property<string>("UserID")
+                    b.Property<string>("UserCode")
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Address")
@@ -245,6 +245,14 @@ namespace Optimal.Com.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("LoginName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(10)");
 
@@ -262,9 +270,9 @@ namespace Optimal.Com.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("UserID");
+                    b.HasKey("UserCode");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserCode");
 
                     b.ToTable("UserAccount");
                 });
@@ -287,6 +295,14 @@ namespace Optimal.Com.Web.Migrations
                     b.HasKey("Name");
 
                     b.ToTable("Setting");
+
+                    b.HasData(
+                        new
+                        {
+                            Name = "WebApiSetting.SecretKey",
+                            Id = 0,
+                            Value = "lNMJ8FzDjL15jalPwAXcR3RV46EQsO5N"
+                        });
                 });
 #pragma warning restore 612, 618
         }

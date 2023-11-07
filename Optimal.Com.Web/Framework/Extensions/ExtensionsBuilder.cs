@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
+using Optimal.Com.Web.Framework.Migration;
 
-namespace Optimal.Com.Web.Framework.Migrations
+namespace Optimal.Com.Web.Framework.Extensions
 {
     public static class ExtensionsBuilder
     {
@@ -33,5 +34,19 @@ namespace Optimal.Com.Web.Framework.Migrations
 
             return modelBuilder;
         }
+        public static ModelBuilder ApplySeedDataFromCurrentAssembly(this ModelBuilder modelBuilder)
+        {
+            var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(type => typeof(IEntitySeed).IsAssignableFrom(type) && !type.IsInterface);
+
+            foreach (var type in typesToRegister)
+            {
+                var seedInstance = (IEntitySeed)Activator.CreateInstance(type);
+                seedInstance.SeedData(modelBuilder);
+            }
+
+            return modelBuilder;
+        }
+
     }
 }

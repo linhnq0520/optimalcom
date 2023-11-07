@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Optimal.Com.Web.Framework
+namespace Optimal.Com.Web.Framework.Commons
 {
     public abstract class BaseEntity
     {

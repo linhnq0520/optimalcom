@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Optimal.Com.Web.Data;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Repository;
 
 #nullable disable
 

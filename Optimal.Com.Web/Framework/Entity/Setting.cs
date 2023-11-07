@@ -1,4 +1,6 @@
-﻿namespace Optimal.Com.Web.Framework.Entity
+﻿using Optimal.Com.Web.Framework.Commons;
+
+namespace Optimal.Com.Web.Framework.Entity
 {
     public class Setting:BaseEntity
     {

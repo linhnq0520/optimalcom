@@ -1,11 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Autofac.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Optimal.Com.Web.Common;
-using Optimal.Com.Web.Framework.Data;
+using Optimal.Com.Web.Framework.Configuration;
 using Optimal.Com.Web.Framework.Infrastructure;
-using Optimal.Com.Web.Framework.Interface;
-using Optimal.Com.Web.Framework.Service;
-using Optimal.Com.Web.Services;
+using Optimal.Com.Web.Framework.Repository;
 using Optimal.Com.Web.Startup.Mapper;
+using System.Reflection;
+using System.Text;
 
 namespace Optimal.Com.Web.Startup
 {
@@ -21,23 +26,60 @@ namespace Optimal.Com.Web.Startup
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy();
-            }); ;
+            });
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            // Services
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            builder.Services.AddScoped<IUserAccountService, UserAccountService>();
-            builder.Services.AddScoped<ISettingService, SettingService>();
-            var settings = AppDomainInfrastructure.FindClassesOfType<ISetting>().ToList();
-            foreach(var setting in settings)
+            builder.Services.AddSwaggerGen(c =>
             {
-                builder.Services.AddTransient(setting, context =>
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "You api title", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    return context.GetRequiredService<ISettingService>().LoadSetting(setting).Result;
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
                 });
-            }    
-           
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                  {
+                    {
+                      new OpenApiSecurityScheme
+                      {
+                        Reference = new OpenApiReference
+                            {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                            },
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                      }
+                    });
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
+            }
+            );
+            builder.Services.AddApplicationServices();
+            builder.Services.AddSettingService();
+            builder.Services.AddAuthenticationService(configuration);
         }
+
     }
 }

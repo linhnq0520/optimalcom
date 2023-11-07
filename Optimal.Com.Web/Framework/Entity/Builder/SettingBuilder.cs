@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Optimal.Com.Web.Framework.Migrations;
+using Optimal.Com.Web.Framework.Extensions;
 
 namespace Optimal.Com.Web.Framework.Entity.Builder
 {

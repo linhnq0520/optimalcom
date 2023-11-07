@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Optimal.Com.Web.Common;
-using Optimal.Com.Web.Framework.Controller;
+using Optimal.Com.Web.Framework.Commons;
 using Optimal.Com.Web.Models.RequestModels;
 using Optimal.Com.Web.Services;
 
@@ -16,8 +17,13 @@ namespace Optimal.Com.Web.Controllers
             _setting = setting;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddUser(UserAccountModel model)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("You need to log in to access this resource.");
+            }
             var response = await _UserService.Create(model);
             return Ok(response);
         }
@@ -29,6 +35,7 @@ namespace Optimal.Com.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(UserUpdateModel model)
         {
             var respone = await _UserService.Update(model);
@@ -45,15 +52,16 @@ namespace Optimal.Com.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByUserId(string UserId)
+        public async Task<IActionResult> GetByUserCode(string UserId)
         {
-            var response = await _UserService.GetByUserId(UserId);
+            var response = await _UserService.GetByUserCode(UserId);
             if (response != null)
                 return Ok(response);
             else
                 return NotFound();
         }
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteById(int id)
         {
             var emp = await _UserService.GetById(id);
