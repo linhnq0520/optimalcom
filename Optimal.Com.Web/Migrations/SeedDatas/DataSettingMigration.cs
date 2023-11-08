@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Optimal.Com.Web.Data.Entities;
 using Optimal.Com.Web.Framework.Entity;
-using Optimal.Com.Web.Framework.Migration;
+using Optimal.Com.Web.Framework.MigrationExtensions;
 
 namespace Optimal.Com.Web.Migrations.DataMigrations
 {

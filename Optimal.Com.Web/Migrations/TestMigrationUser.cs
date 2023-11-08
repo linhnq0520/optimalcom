@@ -2,6 +2,7 @@
 
 namespace Optimal.Com.Web.Migrations
 {
+    [Migration(123)]
     public class TestMigrationUser : Migration
     {
         public override void Down()
@@ -10,7 +11,9 @@ namespace Optimal.Com.Web.Migrations
 
         public override void Up()
         {
-            Create.Table
+            Create.Table("User")
+                .WithColumn("ID").AsInt32().Identity()
+                .WithColumn("Name").AsString(50);
         }
     }
 }

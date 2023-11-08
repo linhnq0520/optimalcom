@@ -43,7 +43,7 @@ namespace Optimal.Com.Web.Framework.MigrationExtensions
             },
             [typeof(DateTime)] = delegate (ICreateTableColumnAsTypeSyntax c)
             {
-                c.AsNeptuneDateTime2();
+                c.AsDateTime2();
             },
             [typeof(byte[])] = delegate (ICreateTableColumnAsTypeSyntax c)
             {
@@ -81,118 +81,41 @@ namespace Optimal.Com.Web.Framework.MigrationExtensions
             }
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsNeptuneDateTime2(this ICreateTableColumnAsTypeSyntax syntax)
-        {
-            DataConfig dataConfig = DataSettingsManager.LoadSettings();
-            DataProviderType dataProvider = dataConfig.DataProvider;
-            if (1 == 0)
-            {
-            }
+        //public static ICreateTableColumnOptionOrForeignKeyCascadeOrWithColumnSyntax ForeignKey<TPrimary>(this ICreateTableColumnOptionOrWithColumnSyntax column, string primaryTableName = null, string primaryColumnName = null, Rule onDelete = Rule.Cascade) where TPrimary : BaseEntity
+        //{
+        //    if (string.IsNullOrEmpty(primaryTableName))
+        //    {
+        //        primaryTableName = NameCompatibilityManager.GetTableName(typeof(TPrimary));
+        //    }
 
-            ICreateTableColumnOptionOrWithColumnSyntax result;
-            switch (dataProvider)
-            {
-                case DataProviderType.MySql:
-                    {
-                        DefaultInterpolatedStringHandler defaultInterpolatedStringHandler = new DefaultInterpolatedStringHandler(10, 1);
-                        defaultInterpolatedStringHandler.AppendLiteral("datetime(");
-                        defaultInterpolatedStringHandler.AppendFormatted(6);
-                        defaultInterpolatedStringHandler.AppendLiteral(")");
-                        result = syntax.AsCustom(defaultInterpolatedStringHandler.ToStringAndClear());
-                        break;
-                    }
-                case DataProviderType.SqlServer:
-                    {
-                        DefaultInterpolatedStringHandler defaultInterpolatedStringHandler = new DefaultInterpolatedStringHandler(11, 1);
-                        defaultInterpolatedStringHandler.AppendLiteral("datetime2(");
-                        defaultInterpolatedStringHandler.AppendFormatted(6);
-                        defaultInterpolatedStringHandler.AppendLiteral(")");
-                        result = syntax.AsCustom(defaultInterpolatedStringHandler.ToStringAndClear());
-                        break;
-                    }
-                default:
-                    result = syntax.AsDateTime2();
-                    break;
-            }
+        //    if (string.IsNullOrEmpty(primaryColumnName))
+        //    {
+        //        primaryColumnName = "Id";
+        //    }
 
-            if (1 == 0)
-            {
-            }
+        //    return column.Indexed().ForeignKey(primaryTableName, primaryColumnName).OnDelete(onDelete);
+        //}
 
-            return result;
-        }
+        //public static IAlterTableColumnOptionOrAddColumnOrAlterColumnOrForeignKeyCascadeSyntax ForeignKey<TPrimary>(this IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax column, string primaryTableName = null, string primaryColumnName = null, Rule onDelete = Rule.Cascade) where TPrimary : BaseEntity
+        //{
+        //    if (string.IsNullOrEmpty(primaryTableName))
+        //    {
+        //        primaryTableName = NameCompatibilityManager.GetTableName(typeof(TPrimary));
+        //    }
 
-        public static ICreateTableColumnOptionOrForeignKeyCascadeOrWithColumnSyntax ForeignKey<TPrimary>(this ICreateTableColumnOptionOrWithColumnSyntax column, string primaryTableName = null, string primaryColumnName = null, Rule onDelete = Rule.Cascade) where TPrimary : BaseEntity
-        {
-            if (string.IsNullOrEmpty(primaryTableName))
-            {
-                primaryTableName = NameCompatibilityManager.GetTableName(typeof(TPrimary));
-            }
+        //    if (string.IsNullOrEmpty(primaryColumnName))
+        //    {
+        //        primaryColumnName = "Id";
+        //    }
 
-            if (string.IsNullOrEmpty(primaryColumnName))
-            {
-                primaryColumnName = "Id";
-            }
-
-            return column.Indexed().ForeignKey(primaryTableName, primaryColumnName).OnDelete(onDelete);
-        }
-
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnOrForeignKeyCascadeSyntax ForeignKey<TPrimary>(this IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax column, string primaryTableName = null, string primaryColumnName = null, Rule onDelete = Rule.Cascade) where TPrimary : BaseEntity
-        {
-            if (string.IsNullOrEmpty(primaryTableName))
-            {
-                primaryTableName = NameCompatibilityManager.GetTableName(typeof(TPrimary));
-            }
-
-            if (string.IsNullOrEmpty(primaryColumnName))
-            {
-                primaryColumnName = "Id";
-            }
-
-            return column.Indexed().ForeignKey(primaryTableName, primaryColumnName).OnDelete(onDelete);
-        }
+        //    return column.Indexed().ForeignKey(primaryTableName, primaryColumnName).OnDelete(onDelete);
+        //}
 
         public static void TableFor<TEntity>(this ICreateExpressionRoot expressionRoot) where TEntity : BaseEntity
         {
-            Type typeFromHandle = typeof(TEntity);
-            CreateTableExpressionBuilder builder = expressionRoot.Table(NameCompatibilityManager.GetTableName(typeFromHandle)) as CreateTableExpressionBuilder;
-            builder.RetrieveTableExpressions(typeFromHandle);
+            
         }
 
-        public static void RetrieveTableExpressions(this CreateTableExpressionBuilder builder, Type type)
-        {
-            Type type2 = Singleton<ITypeFinder>.Instance.FindClassesOfType(typeof(IEntityBuilder)).FirstOrDefault((Type t) => t.BaseType?.GetGenericArguments().Contains(type) ?? false);
-            if (type2 != null)
-            {
-                (EngineContext.Current.ResolveUnregistered(type2) as IEntityBuilder)?.MapEntity(builder);
-            }
-
-            CreateTableExpression expression = builder.Expression;
-            if (!expression.Columns.Any((ColumnDefinition c) => c.IsPrimaryKey))
-            {
-                ColumnDefinition columnDefinition = new ColumnDefinition
-                {
-                    Name = "Id",
-                    Type = DbType.Int32,
-                    IsIdentity = true,
-                    TableName = NameCompatibilityManager.GetTableName(type),
-                    ModificationType = ColumnModificationType.Create,
-                    IsPrimaryKey = true
-                };
-                expression.Columns.Insert(0, columnDefinition);
-                builder.CurrentColumn = columnDefinition;
-            }
-
-            IEnumerable<PropertyInfo> enumerable = from pi in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty)
-                                                   where pi.DeclaringType != typeof(BaseEntity) && pi.CanWrite && !pi.HasAttribute<NotMappedAttribute>() && !pi.HasAttribute<NotColumnAttribute>() && !expression.Columns.Any((ColumnDefinition x) => x.Name.Equals(NameCompatibilityManager.GetColumnName(type, pi.Name), StringComparison.OrdinalIgnoreCase)) && TypeMapping.ContainsKey(pi.PropertyType.GetTypeToMap().propType)
-                                                   select pi;
-            foreach (PropertyInfo item in enumerable)
-            {
-                string columnName = NameCompatibilityManager.GetColumnName(type, item.Name);
-                var (propType, canBeNullable) = item.PropertyType.GetTypeToMap();
-                DefineByOwnType(columnName, propType, builder, canBeNullable);
-            }
-        }
 
         public static (Type propType, bool canBeNullable) GetTypeToMap(this Type type)
         {

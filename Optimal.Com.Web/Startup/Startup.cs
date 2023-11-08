@@ -79,6 +79,7 @@ namespace Optimal.Com.Web.Startup
             builder.Services.AddApplicationServices();
             builder.Services.AddSettingService();
             builder.Services.AddAuthenticationService(configuration);
+            builder.Services.AddFulentMigratorService(configuration);
         }
 
     }

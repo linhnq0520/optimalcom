@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
-using Optimal.Com.Web.Framework.Migration;
+using Optimal.Com.Web.Framework.MigrationExtensions;
 
 namespace Optimal.Com.Web.Framework.Extensions
 {
